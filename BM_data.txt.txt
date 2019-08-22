@@ -1,0 +1,5 @@
+testing readlines
+test success
+"11:05", "12:03", "972 Holt Ave", "$25", "21 Aug 2019"
+"11:05", None, "972 Holt Ave", "$25", "21 Aug 2019"
+"11:05", "972 Holt Ave", "$25", "21 Aug 2019"
