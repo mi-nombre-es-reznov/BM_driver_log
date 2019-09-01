@@ -70,8 +70,9 @@ def update_end():
     global count, updates_to_file
     end_time_update = ""
     Flagger = True
-    have_update = False
-
+    have_update = ready = False
+    hrs_append = ind_hrs = 0
+    minutes = ind_hrs = 0.0
 
     update = open("BM_data.txt.txt", "r")
     
@@ -107,9 +108,34 @@ def update_end():
                     # Add data line to list
                     updates_to_file.append(new_j)
                     
-                    # Reset string to empty
+                    # Find the hours
+                    start_time = j[0]
+                    hrs = (int(end_time_update) - int(start_time))
+                    
+                    while(ready == False):
+                        if(hrs >= 100):
+                            hrs -= 100
+                            hrs_append += 1
+                        elif(hrs > 60 and hrs < 100):
+                            hrs = 100 - hrs
+                        else:
+                            minutes = (hrs / 60)
+                            ready = True
+                            
+                    # Reset value
+                    ready = False
+                
+                
+                    # Add data together for a sub-total
+                    ind_hrs = (hrs_append + minutes)
+
+                    print("Total hrs worked: ", ind_hrs)
+                    time.sleep(3)
+                    
+                    # Reset string to empty and values
                     Flagger = False
                     have_update = True
+                    ind_hrs = hrs_append = minutes = hrs = 0.0
                 else:
                     print("Invalid entry. Please input an end time.")
                     time.sleep(2.5)
@@ -172,6 +198,8 @@ def calc_pay_periods():
                     if(ind_range >= 100):
                         ind_range -= 100
                         hrs += 1
+                    elif(ind_range > 60 and ind_range < 100):
+                        ind_range = 100 - ind_range
                     else:
                         minutes = (ind_range / 60)
                         ready = True
@@ -273,6 +301,8 @@ def calc_total():
                     if(ind_range >= 100):
                         ind_range -= 100
                         hrs += 1
+                    elif(ind_range > 60 and ind_range < 100):
+                        ind_range = 100 - ind_range
                     else:
                         minutes = (ind_range / 60)
                         ready = True
